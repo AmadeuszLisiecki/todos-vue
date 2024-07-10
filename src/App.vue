@@ -1,20 +1,37 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+  <div id="root">
+    <div class="todoapp">
+      <header class="header">
+        <h1>todos</h1>
+        <form><input type="text" data-cy="createTodo" class="new-todo" placeholder="What needs to be done?"></form>
+      </header>
+      <section class="main"><input type="checkbox" id="toggle-all" class="toggle-all" data-cy="toggleAll"><label
+          for="toggle-all">Mark all as complete</label>
+        <ul class="todo-list" data-cy="todosList">
+          <li class="">
+            <div class="view" role="row" tabindex="0"><input type="checkbox" class="toggle"><label>test 1</label><button
+                type="button" class="destroy" data-cy="deleteTodo"></button></div><input type="text" class="edit"
+              value="test 1">
+          </li>
+          <li class="completed">
+            <div class="view" role="row" tabindex="0"><input type="checkbox" class="toggle"><label>test 2</label><button
+                type="button" class="destroy" data-cy="deleteTodo"></button></div><input type="text" class="edit"
+              value="test 2">
+          </li>
+        </ul>
+      </section>
+      <footer class="footer"><span class="todo-count" data-cy="todosCounter">1 item left</span>
+        <ul data-cy="todosFilter" class="filters">
+          <li><a aria-current="page" class="selected" href="#/">All</a></li>
+          <li><a class="" href="#/active">Active</a></li>
+          <li><a class="" href="#/completed">Completed</a></li>
+        </ul><button type="button" class="clear-completed">Clear completed</button>
+      </footer>
     </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  </div>
 </template>
 
 <style scoped>
