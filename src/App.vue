@@ -30,7 +30,7 @@ export default {
           class="toggle-all" 
         >
         <label for="toggle-all">Mark all as complete</label>
-        <ul v-for="todo of todos" class="todo-list">
+        <ul v-for="todo, index of todos" class="todo-list">
           <li :class="{
             completed: todo.completed,
           }">
@@ -39,9 +39,18 @@ export default {
               role="row" 
               tabindex="0"
             >
-              <input type="checkbox" class="toggle">
+              <input 
+                type="checkbox" 
+                class="toggle" 
+                v-model="todo.completed"
+              >
               <label>{{ todo.title }}</label>
-              <button type="button" class="destroy"></button>
+              <button 
+                @click="todos.splice(index, 1)"
+                type="button" 
+                class="destroy"
+              >
+              </button>
             </div>
             <input 
               type="text" 
