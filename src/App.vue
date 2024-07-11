@@ -1,4 +1,13 @@
-<script setup>
+<script>
+import { todos } from './todos.ts';
+
+export default {
+  data() {
+    return {
+      todos,
+    };
+  },
+};
 </script>
 
 <template>
@@ -6,29 +15,52 @@
     <div class="todoapp">
       <header class="header">
         <h1>todos</h1>
-        <form><input type="text" data-cy="createTodo" class="new-todo" placeholder="What needs to be done?"></form>
+        <form>
+          <input 
+            type="text" 
+            class="new-todo" 
+            placeholder="What needs to be done?"
+          >
+        </form>
       </header>
-      <section class="main"><input type="checkbox" id="toggle-all" class="toggle-all" data-cy="toggleAll"><label
-          for="toggle-all">Mark all as complete</label>
-        <ul class="todo-list" data-cy="todosList">
-          <li class="">
-            <div class="view" role="row" tabindex="0"><input type="checkbox" class="toggle"><label>test 1</label><button
-                type="button" class="destroy" data-cy="deleteTodo"></button></div><input type="text" class="edit"
-              value="test 1">
-          </li>
-          <li class="completed">
-            <div class="view" role="row" tabindex="0"><input type="checkbox" class="toggle"><label>test 2</label><button
-                type="button" class="destroy" data-cy="deleteTodo"></button></div><input type="text" class="edit"
-              value="test 2">
+      <section class="main">
+        <input 
+          type="checkbox" 
+          id="toggle-all" 
+          class="toggle-all" 
+        >
+        <label for="toggle-all">Mark all as complete</label>
+        <ul v-for="todo of todos" class="todo-list">
+          <li :class="{
+            completed: todo.completed,
+          }">
+            <div 
+              class="view" 
+              role="row" 
+              tabindex="0"
+            >
+              <input type="checkbox" class="toggle">
+              <label>{{ todo.title }}</label>
+              <button type="button" class="destroy"></button>
+            </div>
+            <input 
+              type="text" 
+              class="edit" 
+              value="test 1"
+            >
           </li>
         </ul>
       </section>
-      <footer class="footer"><span class="todo-count" data-cy="todosCounter">1 item left</span>
-        <ul data-cy="todosFilter" class="filters">
+      <footer class="footer">
+        <span class="todo-count">1 item left</span>
+        <ul class="filters">
           <li><a aria-current="page" class="selected" href="#/">All</a></li>
           <li><a class="" href="#/active">Active</a></li>
           <li><a class="" href="#/completed">Completed</a></li>
-        </ul><button type="button" class="clear-completed">Clear completed</button>
+        </ul>
+          <button type="button" class="clear-completed">
+            Clear completed
+          </button>
       </footer>
     </div>
   </div>
