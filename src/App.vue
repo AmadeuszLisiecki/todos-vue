@@ -7,6 +7,11 @@ export default {
       todos,
     };
   },
+  computed: {
+    activeTodosLength() {
+      return this.todos.filter(todo => !todo.completed).length;
+    },
+  }
 };
 </script>
 
@@ -61,7 +66,9 @@ export default {
         </ul>
       </section>
       <footer class="footer">
-        <span class="todo-count">1 item left</span>
+        <span class="todo-count">
+          {{ `${activeTodosLength} item${activeTodosLength === 1 ? '' : 's'} letf`}}
+        </span>
         <ul class="filters">
           <li><a aria-current="page" class="selected" href="#/">All</a></li>
           <li><a class="" href="#/active">Active</a></li>
