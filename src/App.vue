@@ -1,45 +1,50 @@
 <script>
-import { todos } from './todos.ts';
+  import StatusFilter from './components/StatusFilter.vue';
+import { TODOS_KINDS } from './constants/todosKinds';
 
-const TODOS_KEY = 'todos';
+  const TODOS_KEY = 'todos';
 
-export default {
-  data() {
-    const data = localStorage.getItem(TODOS_KEY);
-    const todos = data === null ? [] : JSON.parse(data);
-
-    return {
-      todos,
-      title: '',
-    };
-  },
-  computed: {
-    activeTodosLength() {
-      return this.todos.filter(todo => !todo.completed).length;
+  export default {
+    components: {
+      StatusFilter,
     },
-  },
-  watch: {
-    todos: {
-      deep: true,
-      handler() {
-        localStorage.setItem(TODOS_KEY, JSON.stringify(this.todos));
+    data() {
+      const data = localStorage.getItem(TODOS_KEY);
+      const todos = data === null ? [] : JSON.parse(data);
+
+      return {
+        todos,
+        title: '',
+        activeFilterName: TODOS_KINDS.ALL,
+      };
+    },
+    computed: {
+      activeTodosLength() {
+        return this.todos.filter(todo => !todo.completed).length;
+      },
+    },
+    watch: {
+      todos: {
+        deep: true,
+        handler() {
+          localStorage.setItem(TODOS_KEY, JSON.stringify(this.todos));
+        },
+      }
+    },
+    methods: {
+      handleSubmit() {
+        if (this.title.trim()) {
+          this.todos.push({
+            id: Date.now(),
+            title: this.title,
+            completed: false,
+          });
+        }
+
+        this.title = '';
       },
     }
-  },
-  methods: {
-    handleSubmit() {
-      if (this.title.trim()) {
-        this.todos.push({
-          id: Date.now(),
-          title: this.title,
-          completed: false,
-        });
-      }
-
-      this.title = '';
-    }
-  }
-};
+  };
 </script>
 
 <template>
@@ -97,14 +102,11 @@ export default {
         <span class="todo-count">
           {{ `${activeTodosLength} item${activeTodosLength === 1 ? '' : 's'} letf`}}
         </span>
-        <ul class="filters">
-          <li><a aria-current="page" class="selected" href="#/">All</a></li>
-          <li><a class="" href="#/active">Active</a></li>
-          <li><a class="" href="#/completed">Completed</a></li>
-        </ul>
-          <button type="button" class="clear-completed">
-            Clear completed
-          </button>
+        <StatusFilter v-model="activeFilterName"
+        />
+        <button type="button" class="clear-completed">
+          Clear completeds
+        </button>
       </footer>
     </div>
   </div>
