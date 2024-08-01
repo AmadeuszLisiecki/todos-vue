@@ -1,8 +1,13 @@
 <script>
 import { todos } from './todos.ts';
 
+const TODOS_KEY = 'todos';
+
 export default {
   data() {
+    const data = localStorage.getItem(TODOS_KEY);
+    const todos = data === null ? [] : JSON.parse(data);
+
     return {
       todos,
       title: '',
@@ -12,6 +17,14 @@ export default {
     activeTodosLength() {
       return this.todos.filter(todo => !todo.completed).length;
     },
+  },
+  watch: {
+    todos: {
+      deep: true,
+      handler() {
+        localStorage.setItem(TODOS_KEY, JSON.stringify(this.todos));
+      },
+    }
   },
   methods: {
     handleSubmit() {
