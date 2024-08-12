@@ -1,12 +1,14 @@
 <script>
   import StatusFilter from './components/StatusFilter.vue';
-import { TODOS_KINDS } from './constants/todosKinds';
+  import Todo from './components/Todo.vue';
+  import { TODOS_KINDS } from './constants/todosKinds';
 
   const TODOS_KEY = 'todos';
 
   export default {
     components: {
       StatusFilter,
+      Todo,
     },
     data() {
       const data = localStorage.getItem(TODOS_KEY);
@@ -43,6 +45,13 @@ import { TODOS_KINDS } from './constants/todosKinds';
 
         this.title = '';
       },
+      removeTodo({ id }) {
+        const index = this.todos.findIndex(todo => todo.id === id);
+
+        if (index > -1) {
+          this.todos.splice(index, 1);
+        }
+      }
     }
   };
 </script>
@@ -68,34 +77,8 @@ import { TODOS_KINDS } from './constants/todosKinds';
           class="toggle-all" 
         >
         <label for="toggle-all">Mark all as complete</label>
-        <ul v-for="todo, index of todos" class="todo-list">
-          <li :class="{
-            completed: todo.completed,
-          }">
-            <div 
-              class="view" 
-              role="row" 
-              tabindex="0"
-            >
-              <input 
-                type="checkbox" 
-                class="toggle" 
-                v-model="todo.completed"
-              >
-              <label>{{ todo.title }}</label>
-              <button 
-                @click="todos.splice(index, 1)"
-                type="button" 
-                class="destroy"
-              >
-              </button>
-            </div>
-            <input 
-              type="text" 
-              class="edit" 
-              value="test 1"
-            >
-          </li>
+        <ul class="todo-list">
+          <Todo v-for="todo of todos" :todo="todo"  @remove="removeTodo" />
         </ul>
       </section>
       <footer class="footer">
