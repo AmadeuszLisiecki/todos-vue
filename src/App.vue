@@ -69,7 +69,10 @@
         if (index > -1) {
           this.todos.splice(index, 1);
         }
-      }
+      },
+      removeCompleted() {
+        this.todos = this.activeTodos;
+      },
     }
   };
 </script>
@@ -105,7 +108,11 @@
         </span>
         <StatusFilter v-model="activeFilterName"
         />
-        <button type="button" class="clear-completed">
+        <button 
+          type="button" 
+          class="clear-completed"
+          @click="removeCompleted"
+        >
           Clear completeds
         </button>
       </footer>
