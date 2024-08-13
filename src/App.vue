@@ -21,8 +21,26 @@
       };
     },
     computed: {
+      activeTodos() {
+        return this.todos.filter(todo => !todo.completed);
+      },
       activeTodosLength() {
-        return this.todos.filter(todo => !todo.completed).length;
+        return this.activeTodos.length;
+      },
+      completedTodos() {
+        return this.todos.filter(todo => todo.completed);
+      },
+      visibleTodos() {
+        switch (this.activeFilterName) {
+          case TODOS_KINDS.ALL:
+            return this.todos;
+          case TODOS_KINDS.ACTIVE:
+            return this.activeTodos;
+          case TODOS_KINDS.COMPLETED:
+            return this.completedTodos;
+          default:
+            return [];
+        }
       },
     },
     watch: {
@@ -78,7 +96,7 @@
         >
         <label for="toggle-all">Mark all as complete</label>
         <ul class="todo-list">
-          <Todo v-for="todo of todos" :todo="todo"  @remove="removeTodo" />
+          <Todo v-for="todo of visibleTodos" :todo="todo"  @remove="removeTodo" />
         </ul>
       </section>
       <footer class="footer">
