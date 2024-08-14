@@ -13,11 +13,21 @@
     data() {
       const data = localStorage.getItem(TODOS_KEY);
       const todos = data === null ? [] : JSON.parse(data);
+      let activeFilterName;
+      const pathName = location.pathname;
+
+      if (pathName.includes(TODOS_KINDS.ACTIVE)) {
+        activeFilterName = TODOS_KINDS.ACTIVE;
+      } else if (pathName.includes(TODOS_KINDS.COMPLETED)) {
+        activeFilterName = TODOS_KINDS.COMPLETED;
+      } else {
+        activeFilterName = TODOS_KINDS.ALL;
+      }
 
       return {
         todos,
         title: '',
-        activeFilterName: TODOS_KINDS.ALL,
+        activeFilterName,
       };
     },
     computed: {
@@ -32,14 +42,13 @@
       },
       visibleTodos() {
         switch (this.activeFilterName) {
-          case TODOS_KINDS.ALL:
-            return this.todos;
           case TODOS_KINDS.ACTIVE:
             return this.activeTodos;
           case TODOS_KINDS.COMPLETED:
             return this.completedTodos;
+          case TODOS_KINDS.ALL:
           default:
-            return [];
+            return this.todos;
         }
       },
     },
@@ -49,7 +58,7 @@
         handler() {
           localStorage.setItem(TODOS_KEY, JSON.stringify(this.todos));
         },
-      }
+      },
     },
     methods: {
       handleSubmit() {
