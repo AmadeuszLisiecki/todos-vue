@@ -13,21 +13,21 @@
     data() {
       const data = localStorage.getItem(TODOS_KEY);
       const todos = data === null ? [] : JSON.parse(data);
-      let activeFilterName;
+      let statusFilterName;
       const pathName = location.pathname;
 
       if (pathName.includes(TODOS_KINDS.ACTIVE)) {
-        activeFilterName = TODOS_KINDS.ACTIVE;
+        statusFilterName = TODOS_KINDS.ACTIVE;
       } else if (pathName.includes(TODOS_KINDS.COMPLETED)) {
-        activeFilterName = TODOS_KINDS.COMPLETED;
+        statusFilterName = TODOS_KINDS.COMPLETED;
       } else {
-        activeFilterName = TODOS_KINDS.ALL;
+        statusFilterName = TODOS_KINDS.ALL;
       }
 
       return {
         todos,
         title: '',
-        activeFilterName,
+        statusFilterName,
       };
     },
     computed: {
@@ -41,7 +41,7 @@
         return this.todos.filter(todo => todo.completed);
       },
       visibleTodos() {
-        switch (this.activeFilterName) {
+        switch (this.statusFilterName) {
           case TODOS_KINDS.ACTIVE:
             return this.activeTodos;
           case TODOS_KINDS.COMPLETED:
@@ -82,6 +82,15 @@
       removeCompleted() {
         this.todos = this.activeTodos;
       },
+      reverseStatuses() {
+        const newStatus = !!this.activeTodosLength;
+
+        this.todos = this.todos.map(todo => {
+          todo.completed = newStatus;
+
+          return todo;
+        });
+      }
     }
   };
 </script>
@@ -105,6 +114,7 @@
           type="checkbox" 
           id="toggle-all" 
           class="toggle-all" 
+          @click="reverseStatuses"
         >
         <label for="toggle-all">Mark all as complete</label>
         <ul class="todo-list">
@@ -113,16 +123,16 @@
       </section>
       <footer class="footer">
         <span class="todo-count">
-          {{ `${activeTodosLength} item${activeTodosLength === 1 ? '' : 's'} letf`}}
+          {{ `${activeTodosLength} item${activeTodosLength === 1 ? '' : 's'} left`}}
         </span>
-        <StatusFilter v-model="activeFilterName"
+        <StatusFilter v-model="statusFilterName"
         />
         <button 
           type="button" 
           class="clear-completed"
           @click="removeCompleted"
         >
-          Clear completeds
+          Clear completed
         </button>
       </footer>
     </div>
