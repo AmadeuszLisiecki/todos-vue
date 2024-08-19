@@ -117,13 +117,18 @@
           @click="reverseStatuses"
         >
         <label for="toggle-all">Mark all as complete</label>
-        <ul class="todo-list">
-          <Todo v-for="todo of visibleTodos" :todo="todo"  @remove="removeTodo" />
-        </ul>
+        <TransitionGroup class="todo-list" tag="ul" name="todo-list">
+          <Todo 
+            v-for="todo of visibleTodos" 
+            :todo="todo"  
+            @remove="removeTodo"
+            :key="todo.id"
+          />
+        </TransitionGroup>
       </section>
       <footer class="footer">
         <span class="todo-count">
-          {{ `${activeTodosLength} item${activeTodosLength === 1 ? '' : 's'} left`}}
+          {{`${activeTodosLength} item${activeTodosLength === 1 ? '' : 's'} left`}}
         </span>
         <StatusFilter v-model="statusFilterName"
         />
