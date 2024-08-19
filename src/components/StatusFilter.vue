@@ -23,7 +23,7 @@
       <a 
         aria-current="page" 
         :class="{ selected: modelValue === TODOS_KINDS.ALL}" 
-        href="/"
+        href="#/"
         @click="$emit(EMIT_KEY, TODOS_KINDS.ALL)"
       >
         All
@@ -32,7 +32,7 @@
     <li>
       <a 
         :class="{ selected: modelValue === TODOS_KINDS.ACTIVE}" 
-        href="active"
+        href="#/active"
         @click="$emit(EMIT_KEY, TODOS_KINDS.ACTIVE)"
       >
         Active
@@ -41,7 +41,7 @@
     <li>
       <a 
         :class="{ selected: modelValue === TODOS_KINDS.COMPLETED}" 
-        href="completed"
+        href="#/completed"
         @click="$emit(EMIT_KEY, TODOS_KINDS.COMPLETED)"
       >
         Completed

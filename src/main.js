@@ -9,8 +9,7 @@ import { createApp } from 'vue';
 import App from './App.vue';
 
 const routes = [
-  { path: '/', component: App },
-  // { path: '/:status', component: App },
+  { path: '/#', component: App },
 ]
 
 const router = createRouter({
