@@ -1,29 +1,18 @@
-# vue-project
+# Project description
+The project entails the development of a comprehensive task management application, wherein users can seamlessly append, modify (either name or status), and expunge various todos. Notably, these tasks are stored efficiently in the browser's local storage.
 
-This template should help get you started developing with Vue 3 in Vite.
+# Used technologies
+The project is based on:
+* Vue,
+* JavaScript,
+* CSS,
+* HTML,
+* Linter.
 
-## Recommended IDE Setup
+# Site preview
+[Todos app](https://amadeuszlisiecki.github.io/todos/)
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
+# Run local project
+- Install ```npm i```
+- Run ```npm start```
+- The app is at localhost:5173/todos-vue/.
