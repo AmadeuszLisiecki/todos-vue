@@ -1,5 +1,5 @@
 <script>
-  import { TODOS_KINDS } from '@/constants/todosKinds';
+  import { HASH_ROUTE, TODOS_KINDS } from '@/constants/constants';
 
   const EMIT_KEY = 'update:modelValue';
 
@@ -8,6 +8,7 @@
       return {
         TODOS_KINDS,
         EMIT_KEY,
+        HASH_ROUTE,
       };
     },
     props: {
@@ -23,7 +24,7 @@
       <a 
         aria-current="page" 
         :class="{ selected: modelValue === TODOS_KINDS.ALL}" 
-        href="#/"
+        :href="`${HASH_ROUTE}`"
         @click="$emit(EMIT_KEY, TODOS_KINDS.ALL)"
       >
         All
@@ -32,7 +33,7 @@
     <li>
       <a 
         :class="{ selected: modelValue === TODOS_KINDS.ACTIVE}" 
-        href="#/active"
+        :href="`${HASH_ROUTE}${TODOS_KINDS.ACTIVE}`"
         @click="$emit(EMIT_KEY, TODOS_KINDS.ACTIVE)"
       >
         Active
@@ -41,7 +42,7 @@
     <li>
       <a 
         :class="{ selected: modelValue === TODOS_KINDS.COMPLETED}" 
-        href="#/completed"
+        :href="`${HASH_ROUTE}${TODOS_KINDS.COMPLETED}`"
         @click="$emit(EMIT_KEY, TODOS_KINDS.COMPLETED)"
       >
         Completed

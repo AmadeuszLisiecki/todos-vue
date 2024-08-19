@@ -1,7 +1,7 @@
 <script>
   import StatusFilter from './components/StatusFilter.vue';
   import Todo from './components/Todo.vue';
-  import { TODOS_KINDS } from './constants/todosKinds';
+  import { TODOS_KINDS } from './constants/constants';
 
   const TODOS_KEY = 'todos';
 
@@ -14,15 +14,8 @@
       const data = localStorage.getItem(TODOS_KEY);
       const todos = data === null ? [] : JSON.parse(data);
       let statusFilterName;
-      const pathName = location.pathname;
 
-      if (pathName.includes(TODOS_KINDS.ACTIVE)) {
-        statusFilterName = TODOS_KINDS.ACTIVE;
-      } else if (pathName.includes(TODOS_KINDS.COMPLETED)) {
-        statusFilterName = TODOS_KINDS.COMPLETED;
-      } else {
-        statusFilterName = TODOS_KINDS.ALL;
-      }
+      this.setFilterName(location.hash);
 
       return {
         todos,
@@ -59,8 +52,20 @@
           localStorage.setItem(TODOS_KEY, JSON.stringify(this.todos));
         },
       },
+      $route({ path }) {
+        this.setFilterName(path);
+      }
     },
     methods: {
+      setFilterName(path) {
+        if (path.includes(TODOS_KINDS.ACTIVE)) {
+          this.statusFilterName = TODOS_KINDS.ACTIVE;
+        } else if (path.includes(TODOS_KINDS.COMPLETED)) {
+          this.statusFilterName = TODOS_KINDS.COMPLETED;
+        } else {
+          this.statusFilterName = TODOS_KINDS.ALL;
+        }
+      },
       handleSubmit() {
         if (this.title.trim()) {
           this.todos.push({

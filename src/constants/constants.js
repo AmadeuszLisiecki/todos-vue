@@ -3,3 +3,5 @@ export const TODOS_KINDS = {
   ACTIVE: 'active',
   COMPLETED: 'completed',
 };
+
+export const HASH_ROUTE = '#/';
