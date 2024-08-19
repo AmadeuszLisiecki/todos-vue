@@ -10,9 +10,9 @@ The project is based on:
 * Linter.
 
 # Site preview
-[Todos app](https://amadeuszlisiecki.github.io/todos/)
+[Todos app](https://amadeuszlisiecki.github.io/todos-vue/)
 
 # Run local project
-- Install ```npm i```
-- Run ```npm start```
+- Install ```npm i```.
+- Run ```npm run dev```.
 - The app is at localhost:5173/todos-vue/.
