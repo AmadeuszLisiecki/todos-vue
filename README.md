@@ -6,8 +6,7 @@ The project is based on:
 * Vue,
 * JavaScript,
 * CSS,
-* HTML,
-* Linter.
+* HTML.
 
 # Site preview
 [Todos app](https://amadeuszlisiecki.github.io/todos-vue/)
